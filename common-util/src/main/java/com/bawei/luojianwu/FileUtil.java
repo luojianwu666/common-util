@@ -154,7 +154,7 @@ public class FileUtil {
 		/*File file=new File("C:\\Users\\10105\\Desktop\\sss");
 		deleteFile(file);*/
 		//System.out.println(fileSize(new File("C:\\Users\\10105\\Desktop\\demo\\common-utils\\common-utils\\pom.xml")));;
-		//System.out.println(FileUtil.readTextFileByLine("C:\\Users\\10105\\Desktop\\新建文本文档.txt"));
+		System.out.println(FileUtil.readTextFileByLine("C:\\Users\\10105\\Desktop\\新建文本文档.txt"));
 		List<String> readTextFileOfList = FileUtil.readTextFileOfList("C:\\Users\\10105\\Desktop\\新建文本文档.txt");
 		for (String string : readTextFileOfList) {
 			System.out.println(string);
