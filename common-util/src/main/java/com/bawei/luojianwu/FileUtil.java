@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FileUtil {
 	
@@ -21,14 +23,32 @@ public class FileUtil {
 	
 	
 	
-	public static String lastName(String str) {
+	public static String lastName(String fileName ) {
 		
-		str=str.substring(str.lastIndexOf("."));
+		//处理空异常
+				if(fileName==null || "".equals(fileName)) {
+					throw new RuntimeException("文件名不能为空");
+				}
+				if(fileName.indexOf(".")<=-1) {
+					throw new RuntimeException(fileName+":该文件名没有包含扩展名");
+				}
+				String extName = fileName.substring(fileName.lastIndexOf("."));
+				return fileName ;
 		
 		
 		
-		return str;
+		
 	}
+	
+	/**
+	 * 获取系统当前用户目录
+	 * @return
+	 */
+	public static String getSystemUserHome() {
+		return System.getProperty("user.home");
+	}
+	
+	
 	
 	public static void deleteFile(File file) {
 		if(file.isDirectory()) {
@@ -42,11 +62,86 @@ public class FileUtil {
 		}
 	}
 
+	/**
+	 * @Title: getSystemTempDirectory   
+	 * @Description: 操作系统临时目录
+	 * @param: @return      
+	 * @return: String      
+	 * @throws
+	 */
+	public static String getSystemTempDirectory() {
+		return System.getProperty("java.io.tmpdir");
+	}
+	
+	
+	
+	
 	public static String fileSize(File file) {
 		long length=file.length();
 		System.out.println(length);
 		return String.format("%.2f", length/1024)+"kb";
 	}
+	
+	/**
+	 * @Title: readTextFileByLine   
+	 * @Description: 读取文件内容   
+	 * @param: @param pathname
+	 * @param: @return      
+	 * @return: String      
+	 * @throws
+	 */
+	@SuppressWarnings("resource")
+	public static String readTextFileByLine(String pathname) {
+		BufferedReader br = null;
+		StringBuffer sb = new StringBuffer();
+		try {
+			br = new BufferedReader(new FileReader(new File(pathname)));
+			do {
+				sb.append(br.readLine());
+				sb.append("\r\n");
+			}while(br.read()!=-1);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return null;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}finally {
+			closeAll(br);
+		}
+		return sb.toString();
+	}
+	
+	/**
+	 * @Title: readTextFileOfList   
+	 * @Description: 按行读取文件内容到list集合   
+	 * @param: @param pathname
+	 * @param: @return      
+	 * @return: List<String>      
+	 * @throws
+	 */
+	@SuppressWarnings("resource")
+	public static List<String> readTextFileOfList(String pathname) {
+		BufferedReader br = null;
+		List<String> strList = new ArrayList<>();
+		try {
+			br = new BufferedReader(new FileReader(new File(pathname)));
+			do {
+				strList.add(br.readLine());
+			}while(br.read()!=-1);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return null;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}finally {
+			closeAll(br);
+		}
+		return strList;
+	}
+	
+	
 	
 	public static void main(String[] args) throws IOException {
 		//System.out.println(lastName("asd.jsp"));

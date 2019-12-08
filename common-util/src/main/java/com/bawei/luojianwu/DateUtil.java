@@ -8,51 +8,76 @@ import java.util.Date;
 public class DateUtil {
 
 	public static SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
-
+	private static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	private static SimpleDateFormat dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 	// 根据日期算年龄
-	public static int getAge(String birthday) {
-		String[] d = birthday.trim().split("-");
-		int birthYear = Integer.parseInt(d[0]);
-		int birthMonth = Integer.parseInt(d[1]);
-		int birthDay = Integer.parseInt(d[2]);
-
-		Calendar c = Calendar.getInstance();
-		int nowYear = c.get(Calendar.YEAR);
-		int nowMonth = c.get(Calendar.MONTH);
-		int nowDay = c.get(Calendar.DAY_OF_MONTH);
-		
-		int age = nowYear - birthYear;
-		if (birthMonth > nowMonth) {
+	public static int getAge(Date birthDate) {
+		//获得日历控件
+		Calendar calendar = Calendar.getInstance();
+		//获得年、月、日
+		int nowYear = calendar.get(Calendar.YEAR);
+		int nowMonth = calendar.get(Calendar.MONTH);
+		int nowDay = calendar.get(Calendar.DAY_OF_MONTH);
+		//设置日历控件为生日的时间
+		calendar.setTime(birthDate);
+		int birthYear = calendar.get(Calendar.YEAR);
+		int birthMonth = calendar.get(Calendar.MONTH);
+		int birthDay = calendar.get(Calendar.DAY_OF_MONTH);
+		//计算年龄
+		int age = nowYear-birthYear;
+		//如果生日的月份大于当前月份时，年龄-1
+		if(birthMonth>nowMonth) {
 			age--;
 		}
-		if (birthMonth == nowMonth && birthDay > nowDay) {
+		//如果月份相等，判断日期
+		if(birthMonth==nowMonth && nowDay<birthDay) {
 			age--;
 		}
-
 		return age;
 	}
+	/**
+	 * @Title: getDayNum   
+	 * @Description: 获取开始日期和结束日期之间有多少天   
+	 * @param: @param startDate
+	 * @param: @param endDate
+	 * @param: @return      
+	 * @return: int      
+	 * @throws
+	 */
+	public static int getDayNum(Date date1,Date date2) {
+		//一天有多少毫秒
+		Long dayTime = 1000*60*60*24L;
+		Long startTime = date1.getTime();
+		Long endTime = date2.getTime();
+
+		Double dayNum = Math.abs(((endTime-startTime)/dayTime*1.0));
+
+		return dayNum.intValue()+1;
+	}
+	
 
 	// 求未来日期离今天还剩的天数
-	public static int getDay(String birthday) {
-		String[] d = birthday.trim().split("-");
-		int birthYear = Integer.parseInt(d[0]);
-		int birthMonth = Integer.parseInt(d[1]);
-		int birthDay = Integer.parseInt(d[2]);
-
-		Calendar c = Calendar.getInstance();
-		int nowYear = c.get(Calendar.YEAR);
-		int nowMonth = c.get(Calendar.MONTH) + 1;
-		int nowDay = c.get(Calendar.DAY_OF_MONTH);
-		System.out.println(nowMonth + "55555");
-
-		int day1 = birthYear * 365 + birthMonth * 30 + birthDay;
-		System.out.println(birthMonth * 30);
-		int day2 = nowYear * 365 + nowMonth * 30 + nowDay;
-		System.out.println(nowMonth * 30);
-		int day = day2 - day1;
-
-		return day;
+	public static int getDayNum(Date date) {
+		Date date2 = new Date();
+		return getDayNum(date,date2);
 	}
+	/**
+	 * 根据出生日期计算年龄
+	 * @param birthDateStr "2019-11-08"
+	 * @return
+	 */
+	public static int getAge(String birthDateStr) {
+		Date birthDate = null;
+		try {
+			//解析日期字符串为Date对象
+			birthDate = dateFormat.parse(birthDateStr);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		//调用日期计算方法
+		return getAge(birthDate);
+	}
+	
 
 	// 判断给定的日期是否为今天
 	public static boolean isToday(Date date) {
