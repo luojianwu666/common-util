@@ -92,14 +92,16 @@ public class FileUtil {
 	 */
 	@SuppressWarnings("resource")
 	public static String readTextFileByLine(String pathname) {
+		String str=null;
 		BufferedReader br = null;
 		StringBuffer sb = new StringBuffer();
 		try {
 			br = new BufferedReader(new FileReader(new File(pathname)));
-			do {
-				sb.append(br.readLine());
-				sb.append("\r\n");
-			}while(br.read()!=-1);
+			while((str=br.readLine())!=null) {
+				
+				sb.append(str);
+				sb.append("\n");
+			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 			return null;
@@ -122,13 +124,16 @@ public class FileUtil {
 	 */
 	@SuppressWarnings("resource")
 	public static List<String> readTextFileOfList(String pathname) {
+		String str=null;
 		BufferedReader br = null;
 		List<String> strList = new ArrayList<>();
 		try {
 			br = new BufferedReader(new FileReader(new File(pathname)));
-			do {
-				strList.add(br.readLine());
-			}while(br.read()!=-1);
+			while((str=br.readLine())!=null) {
+				
+				strList.add(str);
+				
+			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 			return null;
@@ -148,8 +153,12 @@ public class FileUtil {
 		//System.out.println("C:\\Users\\10105\\Desktop\\demo2");
 		/*File file=new File("C:\\Users\\10105\\Desktop\\sss");
 		deleteFile(file);*/
-		System.out.println(fileSize(new File("C:\\Users\\10105\\Desktop\\demo\\common-utils\\common-utils\\pom.xml")));;
-		
+		//System.out.println(fileSize(new File("C:\\Users\\10105\\Desktop\\demo\\common-utils\\common-utils\\pom.xml")));;
+		//System.out.println(FileUtil.readTextFileByLine("C:\\Users\\10105\\Desktop\\新建文本文档.txt"));
+		List<String> readTextFileOfList = FileUtil.readTextFileOfList("C:\\Users\\10105\\Desktop\\新建文本文档.txt");
+		for (String string : readTextFileOfList) {
+			System.out.println(string);
+		}
 	}
 	
 	
