@@ -17,6 +17,20 @@ public class StringUtil {
 		
 		return false;
 	}
+	//是否是数字
+	public static boolean isNumber(String str) {
+		String name="\\d+";
+		return str.matches(name);
+	}
+	
+	//过滤String参数空格后判断是否有值
+	public static boolean hasText(String str) {
+		str=str.trim();
+		return str!=null;
+		
+	}
+	
+	
 	//是否为手机号
 	public static boolean isPhone(String str) {
 		String name="1[3458]\\d{9}";
@@ -171,7 +185,8 @@ public class StringUtil {
 		/*System.out.println(isLetter("ALaaa"));
 		System.out.println(randomString(5));
 		System.out.println(randomStringAndNum(6));*/
-		System.out.println(randomChineseName());
+		//System.out.println(randomChineseName());
+		System.out.println(isNumber("s123"));;
 	}
 	
 	
