@@ -5,6 +5,20 @@ import java.util.Random;
 
 public class StringUtil {
 	
+	
+	public static boolean isBlank(String str) {
+		if(str==null) {
+			return true;
+		}
+		//去空格
+		str = str.trim();
+		//
+		if(str.length()==0) {
+			return true;
+		}
+		return false;
+	}
+	
 	//判断是否为空
 	public static boolean isNull(String str) {
 		if(str==null || str.equals("")) {
