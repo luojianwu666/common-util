@@ -9,7 +9,7 @@ public class DateUtil {
 
 	public static SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 	private static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-	private static SimpleDateFormat dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+	public static SimpleDateFormat dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 	// 根据日期算年龄
 	public static int getAge(Date birthDate) {
 		//获得日历控件
