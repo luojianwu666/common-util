@@ -138,7 +138,42 @@ public class DateUtil {
 		}
 		return -1;
 	}
-
+	
+	public static int getOddOrEven(Date date) {
+		Calendar calendar=Calendar.getInstance();
+		calendar.setTime(date);
+		int Day=calendar.get(Calendar.DAY_OF_MONTH);
+		return Day%2;
+	}
+	
+	
+	 public static int getDayofweek(String date){
+		  Calendar cal = Calendar.getInstance();
+		//   cal.setTime(new Date(System.currentTimeMillis()));
+		  if (date.equals("")) {
+		   cal.setTime(new Date(System.currentTimeMillis()));
+		  }else {
+		   cal.setTime(new Date(StringToDate(date).getTime()));
+		  }
+		   return cal.get(Calendar.DAY_OF_WEEK);
+		 }
+	 
+	 //将字符串转换成date类型
+	 public static Date StringToDate(String dd)
+	 {
+	 
+	  SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd");
+	  Date date;
+	  try {
+	   date = sd.parse(dd);
+	  } catch (ParseException e) {
+	   date = null;
+	   e.printStackTrace();
+	  }
+	  return date;
+	 }
+	
+	
 	public static void main(String[] args) throws ParseException {
 		// System.out.println(getAge("2018-12-04"));
 		// System.out.println(getDay("2019-12-04"));
@@ -156,6 +191,9 @@ public class DateUtil {
 		/*Date d1 = sf.parse("2019-12-06");
 		Date d2 = sf.parse("2019-11-06");
 		System.out.println(comparDate(d1, d2));*/
+		SimpleDateFormat formatter = new SimpleDateFormat( "yyyy-MM-dd");
+		String s= "2011-07-09 "; 
+		Date date =  formatter.parse(s);
 	}
 
 }

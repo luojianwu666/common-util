@@ -24,11 +24,6 @@ public class StringUtil {
 		if(str==null || str.equals("")) {
 			return false;
 		}
-		if(str!=null && !str.equals("") && !str.equals("''")) {
-			return true;
-		}
-		
-		
 		return false;
 	}
 	//是否是数字
@@ -225,8 +220,8 @@ public class StringUtil {
 		System.out.println(randomString(5));
 		System.out.println(randomStringAndNum(6));*/
 		//System.out.println(randomChineseName());
-		System.out.println(isNumber("s123"));;
-		boolean httpUrl = isHttpUrl("https://127.0.0.1/a.html");
+		//System.out.println(isNumber("s123"));;
+		boolean httpUrl = isHttpUrl("aaaaaaaaa");
 		System.out.println(httpUrl);
 	}
 	
